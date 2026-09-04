@@ -22,6 +22,9 @@ export default function Index() {
         <p className={styles.hint}>
           פתחו את האפליקציה מתוך ניהול החנות ב-Shopify.
         </p>
+        <p className={styles.hint}>
+          <a href="/privacy">Privacy policy</a>
+        </p>
       </div>
     </div>
   );
