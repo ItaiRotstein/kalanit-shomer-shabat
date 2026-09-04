@@ -2,7 +2,7 @@
 
 client_id = "14dfbcbee2e84a15b6f5b9a12f8ebadc"
 name = "Shomer Shabbat"
-application_url = "https://example.com"
+application_url = "https://kalanit-shomer-shabat.vercel.app"
 embedded = true
 
 [access_scopes]
@@ -25,10 +25,14 @@ api_version = "2026-07"
   compliance_topics = [ "customers/data_request", "customers/redact", "shop/redact" ]
 
 [auth]
-redirect_urls = [ "https://example.com/api/auth" ]
+redirect_urls = [
+  "https://kalanit-shomer-shabat.vercel.app/auth/callback",
+  "https://kalanit-shomer-shabat.vercel.app/auth/shopify/callback",
+  "https://kalanit-shomer-shabat.vercel.app/api/auth/callback"
+]
 
 [app_proxy]
-url = "https://example.com/apps/shomer-shabbat"
+url = "https://kalanit-shomer-shabat.vercel.app/apps/shomer-shabbat"
 prefix = "apps"
 subpath = "shomer-shabbat"
 
