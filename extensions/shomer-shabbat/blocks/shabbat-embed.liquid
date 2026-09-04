@@ -1,0 +1,238 @@
+{%- liquid
+  assign bg_color = block.settings.background_color | default: '#ffffff'
+  assign overlay_color = block.settings.overlay_color | default: '#000000'
+  assign overlay_opacity = block.settings.overlay_opacity | default: 50
+  assign logo_source = block.settings.logo_source | default: 'shop'
+  assign has_bg_image = false
+  if block.settings.background_image != blank
+    assign has_bg_image = true
+  endif
+-%}
+
+<div
+  id="shomer-shabbat-config"
+  data-status-url="/apps/shomer-shabbat/status"
+  data-force="{% if block.settings.force_preview %}true{% else %}false{% endif %}"
+  data-show-countdown="{% if block.settings.show_countdown %}true{% else %}false{% endif %}"
+  hidden
+></div>
+
+<div
+  class="shabbat-announcement-bar{% if has_bg_image %} shabbat-announcement-bar--has-image{% endif %}"
+  id="shabbat-announcement-bar"
+  style="--shabbat-bg: {{ bg_color }}; --shabbat-overlay-color: {{ overlay_color }}; --shabbat-overlay-opacity: {{ overlay_opacity }};"
+  hidden
+>
+  {%- if has_bg_image -%}
+    <img
+      class="shabbat-announcement-bar__bg"
+      src="{{ block.settings.background_image | image_url: width: 1920 }}"
+      alt=""
+      loading="eager"
+      width="1920"
+      height="1080"
+    >
+  {%- endif -%}
+  <div class="shabbat-announcement-bar__overlay"></div>
+  <div class="shabbat-announcement-bar__content">
+    {%- if logo_source == 'shop' and shop.brand.logo -%}
+      <img
+        class="shabbat-announcement-bar__logo"
+        src="{{ shop.brand.logo | image_url: width: 300 }}"
+        alt="{{ shop.name }}"
+        loading="eager"
+        width="300"
+        height="auto"
+      >
+    {%- elsif logo_source == 'custom' and block.settings.custom_logo != blank -%}
+      <img
+        class="shabbat-announcement-bar__logo"
+        src="{{ block.settings.custom_logo | image_url: width: 300 }}"
+        alt="{{ shop.name }}"
+        loading="eager"
+        width="300"
+        height="auto"
+      >
+    {%- endif -%}
+
+    <span class="shabbat-announcement-bar__heading" data-shabbat-text>
+      {{- block.settings.shabbat_heading | default: 'שבת שלום ומבורך' -}}
+    </span>
+    <span class="shabbat-announcement-bar__text" data-shabbat-text>
+      {{- block.settings.shabbat_message | default: 'החנות סגורה לכבוד שבת קודש.' -}}
+    </span>
+    <span class="shabbat-announcement-bar__heading" data-holiday-text hidden>
+      {{- block.settings.holiday_heading | default: 'חג שמח' -}}
+    </span>
+    <span class="shabbat-announcement-bar__text" data-holiday-text hidden>
+      {{- block.settings.holiday_message | default: 'החנות סגורה לרגל החג.' -}}
+    </span>
+
+    <div id="shabbat-countdown-wrap" hidden>
+      <div class="shabbat-countdown-label">החנות שלנו תחזור לפעול בעוד...</div>
+      <div class="shabbat-countdown" id="shabbat-countdown">
+        <div class="shabbat-countdown__item">
+          <span class="shabbat-countdown__number" id="shabbat-cd-days">00</span>
+          <span class="shabbat-countdown__unit">ימים</span>
+        </div>
+        <span class="shabbat-countdown__separator">:</span>
+        <div class="shabbat-countdown__item">
+          <span class="shabbat-countdown__number" id="shabbat-cd-hours">00</span>
+          <span class="shabbat-countdown__unit">שעות</span>
+        </div>
+        <span class="shabbat-countdown__separator">:</span>
+        <div class="shabbat-countdown__item">
+          <span class="shabbat-countdown__number" id="shabbat-cd-mins">00</span>
+          <span class="shabbat-countdown__unit">דקות</span>
+        </div>
+        <span class="shabbat-countdown__separator">:</span>
+        <div class="shabbat-countdown__item">
+          <span class="shabbat-countdown__number" id="shabbat-cd-secs">00</span>
+          <span class="shabbat-countdown__unit">שניות</span>
+        </div>
+      </div>
+    </div>
+
+    {%- if block.settings.show_copyright -%}
+      <span class="shabbat-announcement-bar__copyright">
+        {{ shop.name }} &copy; {{ 'now' | date: '%Y' }}
+      </span>
+    {%- endif -%}
+  </div>
+</div>
+
+{%- if block.settings.custom_css != blank -%}
+  <style>
+    {{ block.settings.custom_css }}
+  </style>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Shomer Shabbat",
+  "target": "body",
+  "stylesheet": "shabbat-mode.css",
+  "javascript": "shabbat-mode.js",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Your store closes automatically on Shabbat and holidays. Times are loaded from the Shomer Shabbat app."
+    },
+    {
+      "type": "checkbox",
+      "id": "force_preview",
+      "label": "Preview: show store as closed",
+      "default": false,
+      "info": "Enable, save, then open a storefront preview. Turn off when finished testing."
+    },
+    {
+      "type": "header",
+      "content": "Text"
+    },
+    {
+      "type": "text",
+      "id": "shabbat_heading",
+      "label": "Shabbat heading",
+      "default": "שבת שלום ומבורך"
+    },
+    {
+      "type": "textarea",
+      "id": "shabbat_message",
+      "label": "Shabbat message",
+      "default": "החנות סגורה לכבוד שבת קודש."
+    },
+    {
+      "type": "text",
+      "id": "holiday_heading",
+      "label": "Holiday heading",
+      "default": "חג שמח"
+    },
+    {
+      "type": "textarea",
+      "id": "holiday_message",
+      "label": "Holiday message",
+      "default": "החנות סגורה לרגל החג."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_copyright",
+      "label": "Show copyright line",
+      "default": true,
+      "info": "Displays shop name and the current year, for example: My Store © 2026."
+    },
+    {
+      "type": "header",
+      "content": "Background"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background image",
+      "info": "Optional. When set, the image covers the screen and the overlay is shown."
+    },
+    {
+      "type": "color",
+      "id": "overlay_color",
+      "label": "Overlay color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "label": "Overlay opacity",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 50
+    },
+    {
+      "type": "header",
+      "content": "Logo"
+    },
+    {
+      "type": "select",
+      "id": "logo_source",
+      "label": "Logo",
+      "default": "shop",
+      "options": [
+        { "value": "shop", "label": "Shop logo" },
+        { "value": "custom", "label": "Custom image" },
+        { "value": "none", "label": "No logo" }
+      ]
+    },
+    {
+      "type": "image_picker",
+      "id": "custom_logo",
+      "label": "Custom logo image",
+      "info": "Used when Logo is set to Custom image."
+    },
+    {
+      "type": "header",
+      "content": "Countdown"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_countdown",
+      "label": "Show reopen countdown",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Advanced"
+    },
+    {
+      "type": "textarea",
+      "id": "custom_css",
+      "label": "Custom CSS",
+      "info": "Optional. Scope rules to #shabbat-announcement-bar, for example: #shabbat-announcement-bar .shabbat-announcement-bar__heading { font-size: 3rem; }"
+    }
+  ]
+}
+{% endschema %}

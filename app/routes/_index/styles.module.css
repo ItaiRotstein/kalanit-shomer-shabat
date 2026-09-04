@@ -1,0 +1,33 @@
+.index {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+  width: 100%;
+  text-align: center;
+  padding: 1rem;
+}
+
+.heading,
+.text,
+.hint {
+  padding: 0;
+  margin: 0;
+}
+
+.text {
+  font-size: 1.2rem;
+  padding-top: 0.75rem;
+  padding-bottom: 1rem;
+}
+
+.hint {
+  color: #616161;
+  font-size: 1rem;
+}
+
+.content {
+  display: grid;
+  gap: 0.5rem;
+  max-width: 28rem;
+}

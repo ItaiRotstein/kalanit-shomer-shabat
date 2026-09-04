@@ -1,0 +1,187 @@
+.shabbat-announcement-bar {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2147483647;
+  background-color: var(--shabbat-bg, #fff);
+  color: #fff;
+  text-align: center;
+  direction: rtl;
+}
+
+.shabbat-announcement-bar__bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  z-index: 0;
+}
+
+.shabbat-announcement-bar__overlay {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--shabbat-overlay-color, #000);
+  opacity: calc(var(--shabbat-overlay-opacity, 50) / 100);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.shabbat-announcement-bar--has-image .shabbat-announcement-bar__overlay {
+  display: block;
+}
+
+.shabbat-announcement-bar__content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 560px;
+  height: 100%;
+  gap: 16px;
+  padding: 40px 20px;
+  margin: 0 auto;
+}
+
+.shabbat-announcement-bar__logo {
+  max-width: 160px;
+  height: auto;
+}
+
+.shabbat-announcement-bar__heading {
+  font-weight: 700;
+  font-size: 2.5rem;
+  color: #000;
+  line-height: 1.1;
+}
+
+.shabbat-announcement-bar__text {
+  font-size: 1.25rem;
+  opacity: 0.85;
+  color: #000;
+  line-height: 1.3;
+}
+
+.shabbat-announcement-bar--has-image .shabbat-announcement-bar__heading,
+.shabbat-announcement-bar--has-image .shabbat-announcement-bar__text,
+.shabbat-announcement-bar--has-image .shabbat-announcement-bar__copyright,
+.shabbat-announcement-bar--has-image .shabbat-countdown-label,
+.shabbat-announcement-bar--has-image .shabbat-countdown__number,
+.shabbat-announcement-bar--has-image .shabbat-countdown__unit,
+.shabbat-announcement-bar--has-image .shabbat-countdown__separator {
+  color: #fff;
+}
+
+.shabbat-countdown-label {
+  font-size: 1rem;
+  color: #000;
+  opacity: 0.7;
+  margin-top: 8px;
+}
+
+.shabbat-countdown {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  direction: ltr;
+}
+
+.shabbat-countdown__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.shabbat-countdown__number {
+  font-size: 2.5rem;
+  font-weight: 700;
+  line-height: 1;
+  color: #000;
+}
+
+.shabbat-countdown__unit {
+  font-size: 0.75rem;
+  color: #000;
+  opacity: 0.6;
+  margin-top: 4px;
+}
+
+.shabbat-countdown__separator {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #000;
+  align-self: flex-start;
+  line-height: 1;
+}
+
+.shabbat-announcement-bar__copyright {
+  font-size: 0.75rem;
+  color: #000;
+  opacity: 0.4;
+  padding-bottom: 20px;
+}
+
+body.shabbat-mode .shabbat-announcement-bar {
+  display: flex;
+}
+
+body.shabbat-mode [name="checkout"] {
+  opacity: 0.4 !important;
+  pointer-events: none !important;
+  cursor: not-allowed !important;
+}
+
+body.shabbat-mode .shopify-payment-button,
+body.shabbat-mode .shopify-payment-button__button,
+body.shabbat-mode .additional-checkout-buttons,
+body.shabbat-mode .product-card__buy-now-button,
+body.shabbat-mode .product-card__quick-add-button,
+body.shabbat-mode [data-testid="Checkout-button"] {
+  display: none !important;
+  pointer-events: none !important;
+}
+
+.shabbat-checkout-message {
+  display: none;
+  direction: rtl;
+  font-size: 13px;
+  color: #888;
+  margin-top: 4px;
+}
+
+body.shabbat-mode .shabbat-checkout-message {
+  display: block;
+}
+
+@media (max-width: 749px) {
+  .shabbat-announcement-bar__overlay {
+    display: block;
+  }
+
+  .shabbat-announcement-bar__heading,
+  .shabbat-announcement-bar__text,
+  .shabbat-announcement-bar__copyright,
+  .shabbat-countdown-label,
+  .shabbat-countdown__number,
+  .shabbat-countdown__unit,
+  .shabbat-countdown__separator {
+    color: #fff !important;
+  }
+
+  .shabbat-countdown__number {
+    font-size: 2rem;
+  }
+}

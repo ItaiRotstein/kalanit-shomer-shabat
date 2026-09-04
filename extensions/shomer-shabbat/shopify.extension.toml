@@ -1,0 +1,7 @@
+api_version = "2025-04"
+uid = "dcc49285-f22e-3656-91d9-fe3c5cc55453b85d92fc"
+
+[[extensions]]
+name = "Shomer Shabbat"
+handle = "shomer-shabbat"
+type = "theme"
