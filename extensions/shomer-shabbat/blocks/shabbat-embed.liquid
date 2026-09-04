@@ -3,9 +3,13 @@
   assign overlay_color = block.settings.overlay_color | default: '#000000'
   assign overlay_opacity = block.settings.overlay_opacity | default: 50
   assign logo_source = block.settings.logo_source | default: 'shop'
-  assign has_bg_image = false
+  assign has_desktop_bg = false
+  assign has_mobile_bg = false
   if block.settings.background_image != blank
-    assign has_bg_image = true
+    assign has_desktop_bg = true
+  endif
+  if block.settings.background_image_mobile != blank
+    assign has_mobile_bg = true
   endif
 -%}
 
@@ -18,19 +22,29 @@
 ></div>
 
 <div
-  class="shabbat-announcement-bar{% if has_bg_image %} shabbat-announcement-bar--has-image{% endif %}"
+    class="shabbat-announcement-bar{% if has_desktop_bg %} shabbat-announcement-bar--has-desktop-image{% endif %}{% if has_mobile_bg %} shabbat-announcement-bar--has-mobile-image{% endif %}"
   id="shabbat-announcement-bar"
   style="--shabbat-bg: {{ bg_color }}; --shabbat-overlay-color: {{ overlay_color }}; --shabbat-overlay-opacity: {{ overlay_opacity }};"
   hidden
 >
-  {%- if has_bg_image -%}
+  {%- if has_desktop_bg -%}
     <img
-      class="shabbat-announcement-bar__bg"
+      class="shabbat-announcement-bar__bg shabbat-announcement-bar__bg--desktop"
       src="{{ block.settings.background_image | image_url: width: 1920 }}"
       alt=""
       loading="eager"
       width="1920"
       height="1080"
+    >
+  {%- endif -%}
+  {%- if has_mobile_bg -%}
+    <img
+      class="shabbat-announcement-bar__bg shabbat-announcement-bar__bg--mobile"
+      src="{{ block.settings.background_image_mobile | image_url: width: 1080 }}"
+      alt=""
+      loading="eager"
+      width="1080"
+      height="1920"
     >
   {%- endif -%}
   <div class="shabbat-announcement-bar__overlay"></div>
@@ -174,7 +188,13 @@
       "type": "image_picker",
       "id": "background_image",
       "label": "Background image",
-      "info": "Optional. When set, the image covers the screen and the overlay is shown."
+      "info": "Optional. Used on desktop. When set, the image covers the screen and the overlay is shown."
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image_mobile",
+      "label": "Mobile background image",
+      "info": "Optional. Used on small screens. If empty, the desktop background image is used."
     },
     {
       "type": "color",

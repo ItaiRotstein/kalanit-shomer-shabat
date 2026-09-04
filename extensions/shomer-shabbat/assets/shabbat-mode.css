@@ -36,7 +36,11 @@
   pointer-events: none;
 }
 
-.shabbat-announcement-bar--has-image .shabbat-announcement-bar__overlay {
+.shabbat-announcement-bar__bg--mobile {
+  display: none;
+}
+
+.shabbat-announcement-bar--has-desktop-image .shabbat-announcement-bar__overlay {
   display: block;
 }
 
@@ -74,13 +78,13 @@
   line-height: 1.3;
 }
 
-.shabbat-announcement-bar--has-image .shabbat-announcement-bar__heading,
-.shabbat-announcement-bar--has-image .shabbat-announcement-bar__text,
-.shabbat-announcement-bar--has-image .shabbat-announcement-bar__copyright,
-.shabbat-announcement-bar--has-image .shabbat-countdown-label,
-.shabbat-announcement-bar--has-image .shabbat-countdown__number,
-.shabbat-announcement-bar--has-image .shabbat-countdown__unit,
-.shabbat-announcement-bar--has-image .shabbat-countdown__separator {
+.shabbat-announcement-bar--has-desktop-image .shabbat-announcement-bar__heading,
+.shabbat-announcement-bar--has-desktop-image .shabbat-announcement-bar__text,
+.shabbat-announcement-bar--has-desktop-image .shabbat-announcement-bar__copyright,
+.shabbat-announcement-bar--has-desktop-image .shabbat-countdown-label,
+.shabbat-announcement-bar--has-desktop-image .shabbat-countdown__number,
+.shabbat-announcement-bar--has-desktop-image .shabbat-countdown__unit,
+.shabbat-announcement-bar--has-desktop-image .shabbat-countdown__separator {
   color: #fff;
 }
 
@@ -167,6 +171,14 @@ body.shabbat-mode .shabbat-checkout-message {
 }
 
 @media (max-width: 749px) {
+  .shabbat-announcement-bar--has-mobile-image .shabbat-announcement-bar__bg--desktop {
+    display: none;
+  }
+
+  .shabbat-announcement-bar--has-mobile-image .shabbat-announcement-bar__bg--mobile {
+    display: block;
+  }
+
   .shabbat-announcement-bar__overlay {
     display: block;
   }
