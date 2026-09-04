@@ -2,8 +2,8 @@ import {
   PRIVACY_CONTACT_EMAIL,
   PRIVACY_OPERATOR_NAME,
   PRIVACY_POSTAL_ADDRESS,
-} from "../lib/privacy-contact";
-import styles from "./privacy.module.css";
+} from "../../lib/privacy-contact";
+import styles from "./styles.module.css";
 
 export const meta = () => [
   { title: "Privacy Policy — Shomer Shabbat" },
