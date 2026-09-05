@@ -122,7 +122,7 @@ export default function Dashboard() {
         <s-stack direction="block" gap="base">
           {embedBadge()}
           <s-paragraph>{embedMessage()}</s-paragraph>
-          <s-link href={themeEditorUrl} target="_blank">
+          <s-link href={themeEditorUrl} target="_top">
             <s-button variant={embed.state === "enabled" ? "primary" : undefined}>
               {embed.state === "enabled"
                 ? "עריכת מסך שבת בעורך התבנית"
@@ -167,14 +167,14 @@ export default function Dashboard() {
           <s-list-item>
             {embed.state === "enabled" ? (
               <>
-                <s-link href={themeEditorUrl} target="_blank">
+                <s-link href={themeEditorUrl} target="_top">
                   עיצוב דף השבת
                 </s-link>
                 {" "}
                 - App embeds → Shomer Shabbat (טקסט, רקע, לוגו)
               </>
             ) : (
-                <s-link href={themeEditorUrl} target="_blank">
+                <s-link href={themeEditorUrl} target="_top">
                   הפעלת התוסף בעורך התבנית
                 </s-link>
             )}
@@ -187,7 +187,7 @@ export default function Dashboard() {
 
       <s-section slot="aside" heading="פעולות מהירות">
         <s-stack direction="block" gap="base">
-          <s-link href={themeEditorUrl} target="_blank">
+          <s-link href={themeEditorUrl} target="_top">
             <s-button variant="primary">
               {embed.state === "enabled"
                 ? "עריכת עיצוב בתבנית"

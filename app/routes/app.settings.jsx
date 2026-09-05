@@ -137,7 +137,7 @@ export default function Settings() {
         <s-paragraph>
           ההגדרות שלפניך קובעות את הזמנים והמיקום של כניסת/יציאת השבת. את התוסף
           יש להפעיל מתוך{" "}
-          <s-link href={themeEditorUrl} target="_blank">
+          <s-link href={themeEditorUrl} target="_top">
             עורך התבנית
           </s-link>
           .
