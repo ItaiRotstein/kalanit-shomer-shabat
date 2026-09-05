@@ -1,10 +1,21 @@
 import { Outlet, useLoaderData, useRouteError } from "react-router";
 import { boundary } from "@shopify/shopify-app-react-router/server";
 import { AppProvider } from "@shopify/shopify-app-react-router/react";
+import { ensureAppPricingAccess } from "../lib/app-pricing.server";
 import { authenticate } from "../shopify.server";
 
 export const loader = async ({ request }) => {
-  await authenticate.admin(request);
+  const { billing, admin, redirect, session } =
+    await authenticate.admin(request);
+
+  const pricingRedirect = await ensureAppPricingAccess({
+    request,
+    billing,
+    admin,
+    redirect,
+    session,
+  });
+  if (pricingRedirect) return pricingRedirect;
 
   // eslint-disable-next-line no-undef
   return { apiKey: process.env.SHOPIFY_API_KEY || "" };

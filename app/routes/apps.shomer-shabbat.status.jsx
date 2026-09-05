@@ -1,3 +1,4 @@
+import { shopHasPaidPlan } from "../lib/app-pricing.server";
 import { getShabbatStatus } from "../lib/hebcal.server";
 import { getShopSettings } from "../lib/shop-settings.server";
 import { authenticate } from "../shopify.server";
@@ -25,7 +26,10 @@ export const loader = async ({ request }) => {
     );
   }
 
-  const settings = await getShopSettings(shop);
+  const [settings, hasPaidPlan] = await Promise.all([
+    getShopSettings(shop),
+    shopHasPaidPlan(shop),
+  ]);
 
   const status = await getShabbatStatus({
     geonameId: settings.geonameId,
@@ -35,6 +39,7 @@ export const loader = async ({ request }) => {
   return Response.json(
     {
       ...status,
+      isClosed: hasPaidPlan ? status.isClosed : false,
       messages: DEFAULT_MESSAGES,
     },
     {
