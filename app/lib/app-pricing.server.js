@@ -50,6 +50,20 @@ export async function shopHasPaidPlan(shop) {
 
 /**
  * @param {string} shop
+ */
+export async function clearShopPaidPlan(shop) {
+  try {
+    await ensureBillingTable();
+    await prisma.$executeRaw(Prisma.sql`
+      DELETE FROM "AppBilling" WHERE "shop" = ${shop}
+    `);
+  } catch {
+    // Uninstall should still succeed if the cache table is missing.
+  }
+}
+
+/**
+ * @param {string} shop
  * @param {boolean} active
  */
 export async function setShopPaidPlan(shop, active) {
